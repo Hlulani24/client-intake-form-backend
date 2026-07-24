@@ -113,6 +113,20 @@ app.post('/submit-application', (req, res) => {
   });
 });
 
+// Get all applications route
+app.get('/applications', (req, res) => {
+  const sql = 'SELECT id, title, first_name, surname, email, home_tel, company_name, submitted_at FROM applications ORDER BY submitted_at DESC';
+  
+  db.query(sql, (err, results) => {
+    if (err) {
+      console.log('Error fetching applications:', err.message);
+      res.status(500).json({ success: false, message: 'Failed to fetch applications' });
+    } else {
+      res.status(200).json({ success: true, applications: results });
+    }
+  });
+});
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
