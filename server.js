@@ -31,6 +31,8 @@ app.get('/', (req, res) => {
   res.json({ message: 'Vodacom backend is running' });
 });
 
+const dateOrNull = (val) => (val === '' || val === undefined ? null : val);
+
 // Submit application route
 app.post('/submit-application', (req, res) => {
   const {
@@ -64,18 +66,18 @@ app.post('/submit-application', (req, res) => {
 
   const values = [
     title, initials, surname, first_name, gender, marital_status,
-    identity_type, id_passport_no, passport_country, passport_exp_date,
-    date_of_birth, home_tel, unit_no, building_name, street_no,
+    identity_type, id_passport_no, passport_country, dateOrNull(passport_exp_date),
+    dateOrNull(date_of_birth), home_tel, unit_no, building_name, street_no,
     street_name, town_city, province, physical_code, postal_address,
     postal_code, residence, bill_via_email, email, lines_required,
     relative_first_name, relative_surname, relative_tel, relative_relationship,
     company_name, occupation, salary_date, gross_income,
-    bank_type, age_of_account, debit_order_date, acc_holder_name,
+    bank_type, dateOrNull(age_of_account), debit_order_date, acc_holder_name,
     bank_name, account_no, branch_name, bank_code,
     surety_title, surety_initials, surety_first_name, surety_surname,
-    surety_relationship, surety_dob, surety_home_tel, surety_gender,
+    surety_relationship, dateOrNull(surety_dob), surety_home_tel, surety_gender,
     surety_marital_status, surety_identity_type, surety_id_passport_no,
-    surety_passport_country, surety_passport_exp_date, surety_employer,
+    surety_passport_country, dateOrNull(surety_passport_exp_date), surety_employer,
     surety_occupation, surety_gross_income, surety_unit_no,
     surety_building_name, surety_street_no, surety_street_name,
     surety_town_city, surety_province, surety_code
